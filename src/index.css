@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Pixel';
+  src: url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+}
+
+@font-face {
+  font-family: 'Cyberpunk';
+  src: url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+}
+
+:root {
+  --neon-blue: #00f0ff;
+  --neon-purple: #bf00ff;
+  --neon-green: #00ff9d;
+  --neon-pink: #ff00f0;
+  --dark-bg: #050721;
+  --darker-bg: #020210;
+  --cyber-yellow: #f6ff00;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-[color:var(--dark-bg)] text-white;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cyberpunk', 'Orbitron', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.pixel-border {
+  position: relative;
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 5px var(--neon-blue), 0 0 15px var(--neon-blue);
+}
+
+.pixel-border::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background: transparent;
+  border: 2px solid var(--neon-blue);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.pixel-btn {
+  @apply px-4 py-2 font-bold uppercase tracking-wider transition-all duration-300;
+  background-color: transparent;
+  border: 2px solid var(--neon-blue);
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue);
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.pixel-btn:hover {
+  background-color: var(--neon-blue);
+  color: var(--darker-bg);
+  box-shadow: 0 0 15px var(--neon-blue), 0 0 30px var(--neon-blue);
+}
+
+/* Cyberpunk timeline styles */
+.timeline-container {
+  @apply relative;
+}
+
+.timeline-line {
+  @apply absolute left-1/2 w-1 bg-gradient-to-b from-[color:var(--neon-blue)] to-[color:var(--neon-purple)] h-full transform -translate-x-1/2;
+  box-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-purple);
+}
+
+.timeline-item {
+  @apply relative flex items-center justify-between my-12;
+}
+
+.timeline-content {
+  @apply w-[45%] p-4;
+}
+
+.timeline-content.left {
+  @apply mr-auto pr-8;
+}
+
+.timeline-content.right {
+  @apply ml-auto pl-8;
+}
+
+.timeline-dot {
+  @apply absolute left-1/2 w-5 h-5 rounded-full bg-[color:var(--neon-pink)] transform -translate-x-1/2;
+  box-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+}
+
+.timeline-dot:hover {
+  @apply w-6 h-6;
+  box-shadow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink);
+}
+
+/* Scanline effect */
+.scanline {
+  @apply fixed top-0 left-0 w-full h-full pointer-events-none z-50 opacity-10;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+/* Glitch effect */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 0, 0, 0);
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -1px 0 var(--neon-green);
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -1px 0 var(--neon-pink);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip: rect(10px, 9999px, 9px, 0);
+  }
+  25% {
+    clip: rect(8px, 9999px, 32px, 0);
+  }
+  50% {
+    clip: rect(41px, 9999px, 10px, 0);
+  }
+  75% {
+    clip: rect(5px, 9999px, 66px, 0);
+  }
+  100% {
+    clip: rect(82px, 9999px, 12px, 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip: rect(65px, 9999px, 91px, 0);
+  }
+  25% {
+    clip: rect(13px, 9999px, 55px, 0);
+  }
+  50% {
+    clip: rect(33px, 9999px, 22px, 0);
+  }
+  75% {
+    clip: rect(28px, 9999px, 73px, 0);
+  }
+  100% {
+    clip: rect(13px, 9999px, 54px, 0);
+  }
+}
+
+/* Nav menu styles */
+.nav-item {
+  @apply relative px-4 py-2 transition-all duration-300 hover:text-[color:var(--neon-green)];
+}
+
+.nav-item::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-0.5 bg-[color:var(--neon-green)] transition-all duration-300;
+  box-shadow: 0 0 5px var(--neon-green);
+}
+
+.nav-item:hover::after {
+  @apply w-full;
+}
+
+.nav-item.active {
+  @apply text-[color:var(--neon-blue)];
+}
+
+.nav-item.active::after {
+  @apply w-full bg-[color:var(--neon-blue)];
+  box-shadow: 0 0 10px var(--neon-blue);
+}
+
+/* Project card styles */
+.project-card {
+  @apply bg-[color:var(--darker-bg)] relative overflow-hidden transition-all duration-500;
+  border: 2px solid var(--neon-purple);
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px var(--neon-purple), 0 0 30px rgba(191, 0, 255, 0.3);
+}
+
+/* Game status bar */
+.health-bar {
+  @apply h-4 bg-gray-800 rounded-sm overflow-hidden relative;
+  border: 2px solid var(--neon-green);
+}
+
+.health-bar-fill {
+  @apply h-full bg-gradient-to-r from-red-500 to-red-600;
+  box-shadow: 0 0 8px #ff0000;
+  transition: width 0.5s ease;
+}
+
+.mana-bar {
+  @apply h-4 bg-gray-800 rounded-sm overflow-hidden relative;
+  border: 2px solid var(--neon-blue);
+}
+
+.mana-bar-fill {
+  @apply h-full bg-gradient-to-r from-blue-500 to-blue-600;
+  box-shadow: 0 0 8px #0066ff;
+  transition: width 0.5s ease;
+}
+
+.xp-bar {
+  @apply h-2 bg-gray-800 rounded-sm overflow-hidden relative;
+  border: 1px solid var(--cyber-yellow);
+}
+
+.xp-bar-fill {
+  @apply h-full bg-gradient-to-r from-yellow-400 to-yellow-500;
+  box-shadow: 0 0 8px #ffcc00;
+  transition: width 0.5s ease;
+}
